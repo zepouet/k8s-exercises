@@ -194,7 +194,7 @@ Explications:
 
 Déployons la nouvelle version :
 ```
-kubectl replace -f nginx.yaml
+kubectl replace -f nginx1.yaml
 
 kubectl get pods -w
 ```
