@@ -218,6 +218,8 @@ kubectl edit deployment nginx --record
 Modifier la valeur de l'image nginx par tomcat
 
 ```
+kubectl set image deployment nginx nginx=tomcat --record
+```
 
 ### Rollout status
 
