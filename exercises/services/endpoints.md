@@ -21,7 +21,6 @@ Exécuter la commande:
 kubectl get endpoints
 
 NAME            ENDPOINTS                           AGE
-ingress-nginx   10.233.77.130:80,10.233.87.198:80   16m
 kubernetes      209.97.180.71:6443                  3h35m
 ```
 
