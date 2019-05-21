@@ -1,0 +1,23 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: teapot-blue
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: demobg
+        deployment: blue
+    spec:
+      containers:
+      - name: teapot
+        image: treeptik/nginx:blue
+        ports:
+        - containerPort: 80
+        readinessProbe:
+           tcpSocket:
+              port: 80
+           initialDelaySeconds: 2
+           periodSeconds: 1 
+

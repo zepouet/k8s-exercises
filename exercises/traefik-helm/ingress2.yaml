@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: votinapp-ingress2
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  rules:
+  - host: hotfix-vote.domain
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: votingapp2-vote-hotfix
+          servicePort: vote-service
+  - host: hotfix-result.domain
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: votingapp2-result-hotfix
+          servicePort: result-service

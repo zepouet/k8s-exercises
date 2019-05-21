@@ -1,0 +1,12 @@
+apiVersion: v1
+description: Helm Chart example-voting-app
+keywords:
+- kubernetes
+- example-voting-app
+maintainers:
+- email: n.muller@treeptik.fr
+  name: Nicolas Muller
+name: traefik-helm
+sources:
+- https://github.com/zepouet/jenkins-mastering-k8s
+version: 0.0.1

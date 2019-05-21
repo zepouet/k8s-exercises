@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: rightpod
+spec:
+  containers:
+  - name: sonde
+    image: treeptik/probe
+    ports:
+    - containerPort: 9876
+    livenessProbe:
+      initialDelaySeconds: 2
+      periodSeconds: 5
+      httpGet:
+        path: /health
+        port: 9876
+

@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: votinapp-ingress
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  rules:
+  - host: master-vote.domain
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: votingapp-vote-master
+          servicePort: vote-service
+  - host: master-result.domain
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: votingapp-result-master
+          servicePort: result-service

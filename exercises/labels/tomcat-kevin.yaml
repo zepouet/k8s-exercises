@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: realtomcat
+  labels:
+    env: production
+    owner: kevin
+spec:
+  containers:
+  - name: rawtomcat
+    image: tomcat:8.0.52-jre8

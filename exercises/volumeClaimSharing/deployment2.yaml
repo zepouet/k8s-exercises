@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment2
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: test
+  template:
+    metadata:
+      labels:
+        app: test
+    spec:
+      containers:
+        - name: container
+          image: alpine
+          command: ["watch"]
+          args: ["echo", "hello"]
+          volumeMounts:
+          - name: vol
+            mountPath: "/data"
+      volumes:
+      - name: vol
+        persistentVolumeClaim:
+          claimName: pvc
+

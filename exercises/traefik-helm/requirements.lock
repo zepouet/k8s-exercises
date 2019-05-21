@@ -1,0 +1,21 @@
+dependencies:
+- name: postgresql
+  repository: https://kubernetes-charts.storage.googleapis.com/
+  version: 0.9.5
+- name: redis
+  repository: https://kubernetes-charts.storage.googleapis.com/
+  version: 1.2.2
+- name: result
+  repository: file://local-charts/result
+  version: 0.0.1
+- name: vote
+  repository: file://local-charts/vote
+  version: 0.0.1
+- name: worker
+  repository: file://local-charts/worker
+  version: 0.0.1
+- name: ingress
+  repository: file://local-charts/ingress
+  version: 0.0.1
+digest: sha256:9f43bb28bd820369c9c4d63395d812ae793ad9702060e8cb26ef1940aac438db
+generated: 2019-01-25T18:15:32.347398+01:00

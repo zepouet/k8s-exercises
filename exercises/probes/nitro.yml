@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nitropod
+spec:
+  containers:
+  - name: nitro
+    image: treeptik/probe
+    ports:
+    - containerPort: 9876
+    env:
+    - name: HEALTH_MIN
+      value: "1000"
+    - name: HEALTH_MAX
+      value: "4000"
+    livenessProbe:
+      initialDelaySeconds: 2
+      periodSeconds: 5
+      httpGet:
+        path: /health
+        port: 9876
+

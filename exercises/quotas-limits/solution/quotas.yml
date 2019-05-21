@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:  
+  namespace: foo
+  name: bar
+spec:
+  hard:
+    requests.cpu: "5"
+    requests.memory: 4Gi
+    limits.cpu: "7"
+    limits.memory: 6Gi

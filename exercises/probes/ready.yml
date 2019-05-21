@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: readypod
+spec:
+  containers:
+  - name: ready
+    image: treeptik/probe
+    ports:
+    - containerPort: 9876
+    readinessProbe:
+      initialDelaySeconds: 10
+      httpGet:
+        path: /health
+        port: 9876
+

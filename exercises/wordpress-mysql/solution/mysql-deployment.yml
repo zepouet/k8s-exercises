@@ -1,0 +1,23 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: wordpress-mysql
+  labels:
+    app: wordpress
+spec:
+  template:
+    metadata:
+      labels:
+        app: wordpress
+        service: mysql
+    spec:
+      containers:
+        - image: mysql:5.6
+          name: mysql
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: root123
+          ports:
+            - containerPort: 3306
+              name: mysql
+

@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ .Release.Name }}-ingress
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  rules:
+  - host: {{ .Values.global.foo }}-vote.domain
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: {{ .Release.Name }}-vote-{{ .Values.global.foo }}
+          servicePort: vote-service
+  - host: {{ .Values.global.foo }}-result.domain
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: {{ .Release.Name }}-result-{{ .Values.global.foo }}
+          servicePort: result-service
