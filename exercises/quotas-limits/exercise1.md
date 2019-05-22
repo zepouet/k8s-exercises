@@ -19,7 +19,7 @@ Kubernetes provides the ResourceQuota object to set constraints on the number of
 Create the directory data/quotas in your home folder to manage the YAML file needed in this module.
 
 ```
-mkdir ~/data/quotas
+mkdir ~/quotas
 ```
 
 ## Resource quota
