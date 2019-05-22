@@ -2,6 +2,8 @@
 
 ## Créer un pod Redis
 
+Créer le fichier **dep.yaml** selon
+
 ```
 apiVersion: extensions/v1beta1
 kind: Deployment
