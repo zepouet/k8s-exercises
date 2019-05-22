@@ -130,11 +130,11 @@ apt-get install busybox -y
 Désormais vous ne pouvez plus faire
 
 ```
-busybox nslookup nginxsv
+busybox nslookup nginxsvc
 Server:    10.43.240.10
 Address 1: 10.43.240.10 kube-dns.kube-system.svc.cluster.local
 
-nslookup: can't resolve 'nginxsv'
+nslookup: can't resolve 'nginxsvc'
 root@shell-demo:/# busybox nslookup nginxsvc
 Server:    10.43.240.10
 Address 1: 10.43.240.10 kube-dns.kube-system.svc.cluster.local
@@ -145,7 +145,7 @@ nslookup: can't resolve 'nginxsvc'
 Vous devez préciser le namespace **default**
 
 ```
-nslookup nginxsvc.default
+busybox nslookup nginxsvc.default
 Server:    10.43.240.10
 Address 1: 10.43.240.10 kube-dns.kube-system.svc.cluster.local
 
