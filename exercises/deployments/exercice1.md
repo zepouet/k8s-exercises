@@ -119,6 +119,23 @@ nginx-6d6f9d6dcb-s2sdp:	nginx:1.10.2,
 
 Editer à nouveau le fichier **nginx1.yaml** pour changer la version de l'image en **1.10.2** en **1.11.5**
 
+Mais aussi le bloc 
+
+```
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 10
+```
+
+Explications:
+* minReadySeconds: attente minimale entre la création de deux pods
+* maxSurge: nombre de pods qui vont s'ajouter au nombre désiré (absolu ou pourcentage)
+* maxUnavailable: nombre de pods qui peuvent être indisponible durant la mise à jour
+
+
 ```
 kubectl replace -f nginx1.yaml
 kubectl get pod
@@ -160,39 +177,6 @@ Réponse : Tous les pods ont été remplacés dans le quasi laps de temps.
 
 Créer le fichier **nginx1.yaml** avec le bloc spécifique **strategy**
 
-```
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  name: nginx
-spec:
-  replicas: 5
-  selector:
-    matchLabels:
-      service: http-server
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 1
-  minReadySeconds: 10
-  template:
-    metadata:
-      labels:
-        service: http-server
-    spec:
-      containers:
-      - name: nginx
-        image: nginx:1.12
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 80
-```
-
-Explications:
-* minReadySeconds: attente minimale entre la création de deux pods
-* maxSurge: nombre de pods qui vont s'ajouter au nombre désiré (absolu ou pourcentage)
-* maxUnavailable: nombre de pods qui peuvent être indisponible durant la mise à jour
 
 Déployons la nouvelle version :
 ```
