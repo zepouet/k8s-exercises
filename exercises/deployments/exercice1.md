@@ -1,13 +1,9 @@
 # Utiliser les Deployments
 
-## Nettoyer l'environnement précédent
-
-`kubectl delete daemonsets,replicasets,services,deployments,pods,rc --all`
 
 ## Pourquoi utiliser les Deployments ?
 
 Un ReplicaSet ne peut fournir de service de rolling-update que les ReplicationController savent faire.
-
 Pour faire une action de rolling-update ou de rollout sur un ReplicaSet, il est nécessaire d'utiliser un Deployment de façon déclarative.
 
 ## Créer son premier Deployment
@@ -15,29 +11,15 @@ Pour faire une action de rolling-update ou de rollout sur un ReplicaSet, il est 
 Copier le contenu dans le fichier **nginx0.yaml**
 
 ```
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  name: nginx
-spec:
-  replicas: 3
-  template:
-    metadata:
-      labels:
-        service: http-server
-    spec:
-      containers:
-      - name: nginx
-        image: nginx:1.10.2
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 80
+kubectl create deployment nginx --dry-run -o yaml --image=nginx:1.10.2 > nginx0.yaml
 ```
+
+Mettre à jour le nombre de réplicas à 3
 
 Créer le déploiement:
 
 ```
-kubectl create -f nginx0.yaml
+kubectl apply -f nginx0.yaml --save-config
 deployment "nginx" created
 ```
 
@@ -98,10 +80,10 @@ Events:
 
 ## Impératif par fichier
 
-Editer le fichier **nginx0.yaml** et passer le nombre de réplicas à 5
+Copier le fichier **nginx0.yaml** en **nginx1.yaml**  et passer le nombre de réplicas à 5
 
 ```
-kubectl replace -f nginx0.yaml
+kubectl replace -f nginx1.yaml
 deployment.extensions/nginx replaced
 ```
 
@@ -122,13 +104,33 @@ nginx-67b67f7678-w785k   1/1     Running   0          3s
 nginx-67b67f7678-wsqw5   1/1     Running   0          21s
 ```
 
-Réponse : De nouveaux pods ont été rajoutés.
-
-Editer à nouveau le fichier **nginx0.yaml** pour changer la version de l'image en **1.10.2** en **1.11.5**
+Réponse : De nouveaux pods ont été rajoutés. Listez les.
 
 ```
-kubectl replace -f nginx0.yaml
+kubectl get pods -o jsonpath='{range .items[*]}{"\n"}{.metadata.name}{":\t"}{range .spec.containers[*]}{.image}{", "}{end}{end}' |\
+sort
+
+nginx-6d6f9d6dcb-6vw62:	nginx:1.10.2,
+nginx-6d6f9d6dcb-9x9k7:	nginx:1.10.2,
+nginx-6d6f9d6dcb-qswcz:	nginx:1.10.2,
+nginx-6d6f9d6dcb-rt7m7:	nginx:1.10.2,
+nginx-6d6f9d6dcb-s2sdp:	nginx:1.10.2,
+```
+
+Editer à nouveau le fichier **nginx1.yaml** pour changer la version de l'image en **1.10.2** en **1.11.5**
+
+```
+kubectl replace -f nginx1.yaml
 kubectl get pod
+
+kubectl get pods -o jsonpath='{range .items[*]}{"\n"}{.metadata.name}{":\t"}{range .spec.containers[*]}{.image}{", "}{end}{end}' |\
+sort
+
+nginx-5767cd7458-n2pcw:	nginx:1.11.5,
+nginx-5767cd7458-n6r6d:	nginx:1.11.5,
+nginx-5767cd7458-p5h7f:	nginx:1.11.5,
+nginx-5767cd7458-q5hck:	nginx:1.11.5,
+nginx-5767cd7458-tw7j6:	nginx:1.11.5,
 ```
 
 Que constatez vous ?
