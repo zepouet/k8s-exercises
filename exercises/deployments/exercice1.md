@@ -19,7 +19,7 @@ Mettre à jour le nombre de réplicas à 3
 Créer le déploiement:
 
 ```
-kubectl apply -f nginx0.yaml --save-config
+kubectl create -f nginx0.yaml --save-config
 deployment "nginx" created
 ```
 
